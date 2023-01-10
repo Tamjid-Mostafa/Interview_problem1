@@ -13,7 +13,8 @@ export default function SubscriptionForm() {
       setAlertClass('alert-validate');
       return;
     }
-    fetch('http://103.108.146.90:5000/sendemail', {
+    else {
+      fetch('https://codingtest-front-e-2-server.vercel.app/email', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -21,14 +22,16 @@ export default function SubscriptionForm() {
       body: JSON.stringify({ email })
     }).then(res => res.text())
       .then(data => JSON.parse(`${data}`))
-      .then(data => hitToast(data.message, data.success ? 'success' : 'error'))
+      .then(data => {console.log(data)
+        hitToast(data.acknowledged ? 'success' : 'error', "Email Sent Successfully")})
       .catch(() => hitToast('Something went wrong. Please try again.', 'error'))
 
     setAlertClass('');
+    }
   }
 
   const validate = (email) => {
-    if (email.trim(/^([a-zA-Z0-9_\-.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9-]+\.)+))([a-zA-Z]{1,5}|[0-9]{1,3})(\]?)$/).match() == null) {
+    if (email.match(/^([a-zA-Z0-9_\-.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9-]+\.)+))([a-zA-Z]{1,5}|[0-9]{1,3})(\]?)$/) == null) {
       return false;
     } else if (email.trim() === '') {
       return false;

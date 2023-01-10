@@ -1,5 +1,5 @@
 import { toast } from 'react-toastify';
-const hitToast = (variant, message) => {
+const HitToast = (variant, message) => {
     if (!['success', 'error'].includes(variant)) throw Error();
     toast[`${variant}`](message, {
         position: "top-right",
@@ -11,4 +11,4 @@ const hitToast = (variant, message) => {
         progress: undefined,
     });
 }
-export default hitToast;
+export default HitToast;
